@@ -6,6 +6,14 @@
     <title>Task Tracker</title>
 </head>
 <body>
+<header>
+    <h1>Objectives</h1>
+    <label for="taskName">  </label>
+    <input class = "inputField" type="text" id="taskName" placeholder="Task Name" />
+    <button id="addTask">Add Task</button>
+    <label for="taskPoints">  </label>
+    <input class = "inputField" type="text" id="taskPoints" placeholder="Points" />
+</header>
 
 <table>
     <thead>
@@ -37,7 +45,6 @@
         <td id="dayTotal-6">0</td>
     </tr>
 
-    <!-- You still need the overall totals row, so keep it here -->
     <tr id="overallTotals">
         <th colspan="2">Total Points</th>
         <td id="totalPoints"><span id="totalPointsSum">0</span></td>
@@ -47,8 +54,6 @@
     </tr>
     </tfoot>
 </table>
-
-<!-- You wanted the progress bar. Here it is. -->
 <label for="completion">Task Progress:</label>
 <progress id="completion" max="1" value="0">0</progress>
 
