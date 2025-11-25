@@ -1,64 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <meta charset="UTF-8">
-    <title>Task Tracker</title>
-</head>
-<body>
-<header>
-    <h1>Objectives</h1>
-    <label for="taskName">  </label>
-    <input class = "inputField" type="text" id="taskName" placeholder="Task Name" />
-    <button id="addTask">Add Task</button>
-    <label for="taskPoints">  </label>
-    <input class = "inputField" type="text" id="taskPoints" placeholder="Points" />
-</header>
+    <head>
+        <link rel="stylesheet" href="styles.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <meta charset="UTF-8">
+        <title>Task Tracker</title>
+    </head>
+    <body>
+        <header>
+            <h1>Objectives</h1>
+            <label for="taskName">  </label>
+            <input class = "inputField" type="text" id="taskName" placeholder="Task Name" />
+            <button id="addTask">Add Task</button>
+            <label for="taskPoints">  </label>
+            <input class = "inputField" type="text" id="taskPoints" placeholder="Points" />
+        </header>
 
-<table>
-    <thead>
-    <tr>
-        <th>Task</th>
-        <th>Points</th>
-        <th>Monday</th>
-        <th>Tuesday</th>
-        <th>Wednesday</th>
-        <th>Thursday</th>
-        <th>Friday</th>
-        <th>Saturday</th>
-        <th>Sunday</th>
-    </tr>
-    </thead>
+        <table>
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Points</th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                    <th>Saturday</th>
+                    <th>Sunday</th>
+                </tr>
+            </thead>
 
-    <tbody id="taskTable"></tbody>
+            <tbody id="taskTable"></tbody>
 
-    <tfoot class="days">
-    <tr id="dailyTotalsRow">
-        <th colspan="1">Current Total</th>
-        <td id="currTotals">0</td>
-        <td id="dayTotal-0">0</td>
-        <td id="dayTotal-1">0</td>
-        <td id="dayTotal-2">0</td>
-        <td id="dayTotal-3">0</td>
-        <td id="dayTotal-4">0</td>
-        <td id="dayTotal-5">0</td>
-        <td id="dayTotal-6">0</td>
-    </tr>
+            <tfoot class="days">
+                <tr id="dailyTotalsRow">
+                    <th colspan="1">Current Total</th>
+                    <td id="currTotals">0</td>
+                    <td id="dayTotal-0">0</td>
+                    <td id="dayTotal-1">0</td>
+                    <td id="dayTotal-2">0</td>
+                    <td id="dayTotal-3">0</td>
+                    <td id="dayTotal-4">0</td>
+                    <td id="dayTotal-5">0</td>
+                    <td id="dayTotal-6">0</td>
+                </tr>
 
-    <tr id="overallTotals">
-        <th colspan="1">Total Points</th>
-        <td id="totalPoints"><span id="totalPointsSum">0</span></td>
-        <td colspan="7" id="completedPoints">
-            Completed: <span id="completedPointsSum">0</span>
-        </td>
-    </tr>
-    </tfoot>
-</table>
-<label for="completion">Task Progress:</label>
-<progress id="completion" max="1" value="0">0</progress>
+                <tr id="overallTotals">
+                    <th colspan="1">Total Points</th>
+                    <td id="totalPoints"><span id="totalPointsSum">0</span></td>
+                    <td colspan="7" id="completedPoints">
+                        Completed: <span id="completedPointsSum">0</span>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <label for="completion">Task Progress:</label>
+        <progress id="completion" max="1" value="0">0</progress>
+        <header>
+            <h1>Stats</h1>
 
-<script type="module" src="js/main.js"></script>
+            <label for="calculateStats">Calculate Stats</label>
+            <input type="button" id="calculateStats" value="Calculate" />
 
-</body>
+        </header>
+        <table id="statsTable">
+            <thead>
+            <tr>
+                <th>Day</th>
+                <th>Points</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td id="bestDay"></td>
+                <td id="bestPoints">0</td>
+            </tr>
+            </tbody>
+        </table>
+        <script type="module" src="js/main.js"></script>
+
+    </body>
 </html>

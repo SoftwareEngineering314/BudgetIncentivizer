@@ -1,10 +1,10 @@
 import { objectives, saveData } from "./data.js";
-import { tableBody, addTaskBtn } from "./dom.js";
+import { Dom } from "./dom.js";
 import { addTaskHTML, renderTasks } from "./render.js";
 import { handleCheckboxChange } from "./ui.js";
-
+import { Statistics } from "./stats.js";
 export function addCheckboxListeners() {
-    tableBody.addEventListener("change", (e) => {
+    Dom.tableBody.addEventListener("change", (e) => {
         if (e.target.matches("input[type='checkbox']")) {
             handleCheckboxChange();
         }
@@ -12,7 +12,7 @@ export function addCheckboxListeners() {
 }
 
 // le buttons
-addTaskBtn.addEventListener("click", () => {
+Dom.addTaskBtn.addEventListener("click", () => {
     let taskName = document.getElementById("taskName").value;
     let taskPoints = Number(document.getElementById("taskPoints").value);
     const id = crypto.randomUUID();
@@ -24,7 +24,7 @@ addTaskBtn.addEventListener("click", () => {
     document.getElementById("taskPoints").value = "";
 });
 
-tableBody.addEventListener("click", (event) => {
+Dom.tableBody.addEventListener("click", (event) => {
     if (event.target.classList.contains("delete-icon")) {
         const row = event.target.closest("tr");
         const id = row.dataset.id;
@@ -33,4 +33,11 @@ tableBody.addEventListener("click", (event) => {
         renderTasks();
         handleCheckboxChange();
     }
+});
+
+Dom.calculateStatsBtn.addEventListener("click", (event) => {
+    const { bestDay, bestDayPts } = Statistics.calcBestDay();
+    document.getElementById("bestDay").textContent = bestDay;
+    document.getElementById("bestPoints").textContent = bestDayPts;
+
 });

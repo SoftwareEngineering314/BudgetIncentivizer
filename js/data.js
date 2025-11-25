@@ -13,6 +13,11 @@ export function saveData() {
 export function loadData() {
     const stored = localStorage.getItem("tasks");
     if (stored) {
-        objectives = new Map(JSON.parse(stored));
+        const entries = JSON.parse(stored);
+        objectives.clear();
+        for (const [id, value] of entries) {
+            objectives.set(id, value);
+        }
     }
 }
+

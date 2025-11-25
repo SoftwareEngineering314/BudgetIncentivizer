@@ -4,7 +4,6 @@ import { addCheckboxListeners } from "./events.js";
 import { handleCheckboxChange } from "./ui.js";
 
 function startup() {
-    localStorage.clear();
     loadData();
     renderTasks();
     addCheckboxListeners();
