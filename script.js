@@ -5,56 +5,104 @@ const objectives = new Map();
 objectives.set(2, { task:"Stay under weekly budget", pts: 50 });
 objectives.set(3, { task:"Have a no-spend day", pts: 20 });*/
 
-
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
 
 // dom references
 const tableBody = document.getElementById("taskTable");
 const addTaskBtn = document.getElementById("addTask");
+const deleteDataBtn = document.getElementById("deleteData");
+//startup
+function startup(){
+    loadData();
+    renderTasks();
+    addCheckboxListeners();
+    handleCheckboxChange();
+}
 
+startup();
 
-objectives.forEach((value, key) => {
-    addTaskHTML(key, value.task, value.pts);
-});
-addCheckboxListeners(1)
-
+function renderTasks() {
+    objectives.forEach((value, key) => {
+        addTaskHTML(key, value.task, value.pts);
+    });
+    addCheckboxListeners(1)
+}
 // calculations
 function sumDay(dayIndex) {
     let sum = 0;
-    let fullSum = 0;
 
     objectives.forEach((value, key) => {
-        fullSum += value.pts;
         const box = document.getElementById(`checkbox-${key}-${dayIndex}`);
         if (box && box.checked) {
             sum += value.pts;
         }
     });
 
-    const proportion = sum / fullSum;
-    return [sum, fullSum, proportion];
+    return sum;
+}
+
+function totalPossiblePoints() {
+    let total = 0;
+    objectives.forEach(v => total += v.pts);
+    return total * days.length;
+}
+
+function weeklyCompletionPercentage() {
+    let totalPossible = totalPossiblePoints();
+    let completed = 0;
+
+    days.forEach((_, i) => completed += sumDay(i));
+
+    return completed / totalPossible;
+}
+
+function currentPoints(){
+    let currTotal = 0;
+    for(let i = 0; i < days.length; i++){
+        currTotal += sumDay(i)
+    }
+    return currTotal;
 }
 
 
+function saveData(){
+    window.localStorage.setItem("tasks", JSON.stringify([...objectives]));
+}
+
+function loadData(){
+    const stored = localStorage.getItem("tasks");
+    if (stored)  objectives = new Map(JSON.parse(stored));
+}
+function deleteData(){
+    window.localStorage.clear();
+}
 // -------------------------
 // EVENT HANDLERS
 // -------------------------
 function handleCheckboxChange() {
-    // update each day's total
+    if (objectives.size === 0) {
+        days.forEach((_, i) => {
+            document.getElementById(`dayTotal-${i}`).textContent = 0;
+        });
+        document.getElementById("completion").value = 0;
+        document.getElementById("completedPointsSum").textContent = "0%";
+        document.getElementById("totalPointsSum").value = 0;
+        return;
+    }
+
     days.forEach((_, i) => {
-        document.getElementById(`dayTotal-${i}`).textContent = sumDay(i)[0];
+        document.getElementById(`dayTotal-${i}`).textContent = sumDay(i);
     });
 
-    // completion %
-    let totalProp = 0;
-    days.forEach((_, i) => totalProp += sumDay(i)[2]);
-    totalProp /= days.length;
-
-    document.getElementById("completion").value = totalProp;
+    const weeklyPercent = weeklyCompletionPercentage(); // 0 → 1
+    document.getElementById("completion").value = weeklyPercent;
     document.getElementById("completedPointsSum").textContent =
-        (totalProp * 100).toFixed(0) + "%";
+        (weeklyPercent * 100).toFixed(0) + "%";
+    document.getElementById("totalPointsSum").textContent = totalPossiblePoints();
+    document.getElementById("currTotals").textContent = currentPoints();
 }
+
 
 
 
@@ -106,10 +154,12 @@ addTaskBtn.addEventListener("click", () => {
     let taskPoints = Number(document.getElementById("taskPoints").value);
     let newTask = objectives.size + 1;
     objectives.set(newTask, { task: taskName, pts: taskPoints });
-
     addTaskHTML(newTask, taskName, taskPoints);
+    saveData();
     addCheckboxListeners(newTask)
     handleCheckboxChange();
+    document.getElementById("taskName").value = "";
+    document.getElementById("taskPoints").value = "";
 });
 
 tableBody.addEventListener("click", (event) => {

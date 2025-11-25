@@ -112,4 +112,7 @@ label {
 .task:hover i{
     visibility:visible;
     cursor:pointer;
+  
+#overallTotals{
+    text-align: center;
 }
