@@ -1,5 +1,5 @@
 import { Dom, typeTaskDropdown } from "./dom.js";
-import { handleCheckboxChange } from "../ui/ui.js"; // ✅ use only this directly
+import { handleCheckboxChange } from "../ui/ui.js";
 import { Renderer, renderTasks, renderWeeklyTasks } from "../ui/render.js";
 import { daily_tasks, saveData, weekly_tasks } from "../data/data.js";
 import { Statistics } from "../calculations/stats.js";
