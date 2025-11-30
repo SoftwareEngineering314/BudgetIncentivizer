@@ -16,18 +16,11 @@ export const Calc = {
     },
     
     possibleDailyPoints: () => sumPoints(daily_tasks) * days.length,
-    dailyCompletion: () => Daily.weeklyDailyCompletionPercentage(daily_tasks),
 
     currentWeeklyPoints: () => {
         return Weekly.sumWeek(weekly_tasks);
     },
     possibleWeeklyPoints: () => sumPoints(weekly_tasks),
-    weeklyCompletion: () => Weekly.weeklyCompletionPercentage(
-        weekly_tasks,
-        sumPoints(weekly_tasks)
-    ),
-
-    combinedPoints: () => sumPoints(daily_tasks) + sumPoints(weekly_tasks)
 
 };
 export function sumCheckboxes(taskMap, selectors) {
@@ -39,4 +32,10 @@ export function sumCheckboxes(taskMap, selectors) {
         }
     });
     return sum;
+}
+
+export function completionPercentage(taskMap, completedPoints) {
+    const possible = sumPoints(taskMap);
+    if (!possible) return 0;
+    return completedPoints / possible;
 }

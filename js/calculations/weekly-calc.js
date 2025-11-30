@@ -14,6 +14,7 @@ export function weeklyCompletionPercentage(taskMap, completedPoints) {
     if (!possible) return 0;
     return completedPoints / possible;
 }
+
 export function sumWeek(taskMap) {
     return sumCheckboxes(taskMap, id => `input[data-task="${id}"]`);
 }

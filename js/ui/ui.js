@@ -1,5 +1,6 @@
 import { daily_tasks, days } from "../data/data.js";
-import { Calc } from "../calculations/calc.js";
+import { Calc, completionPercentage } from "../calculations/calc.js";
+import {dailyTaskCompletionPercentage} from "../calculations/daily-calc.js";
 
 export function handleCheckboxChange() {
     dailyTotal();
@@ -24,7 +25,7 @@ function currentPoints(){
 }
 
 function taskCompletion() {
-    let dailyCompletion = Calc.dailyCompletion(daily_tasks);
+    let dailyCompletion = dailyTaskCompletionPercentage(daily_tasks, Calc.currentDailyPoints());
     if(!isFinite(dailyCompletion)) dailyCompletion = 0;
     $("#dailyCompletion").val(dailyCompletion);
     const completedPointsSum = (dailyCompletion * 100).toFixed(0) + "%";
