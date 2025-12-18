@@ -7,6 +7,7 @@ export function renderTasks() {
         addTaskHTML(id, value.task, value.pts);
     });
     renderWeeklyTasks();
+    loadTaskStatus();
 }
 
 function addTaskHTML(id, description, points) {
@@ -31,6 +32,14 @@ function addTaskHTML(id, description, points) {
             ${dayCells}
         </tr>
     `);
+}
+function loadTaskStatus() {
+    Data.dailyTasksStatus.forEach((value, id) => {
+        value.days.forEach((isChecked, dayIndex) => {
+            const checkbox = $(`input[data-task='${id}'][data-day='${dayIndex}']`);
+            checkbox.prop("checked", isChecked);
+        });
+    });
 }
 
 export function renderWeeklyTasks() {
