@@ -36,8 +36,11 @@ export function deleteTaskHelper(event){
 
 
 export function addTask(type) {
-    let taskName = document.getElementById("taskName").value;
-    let taskPoints = Number(document.getElementById("taskPoints").value);
+    const taskNameInput = $("#taskName");
+    const taskPointsInput = $("#taskPoints");
+
+    const taskName = taskNameInput.val();
+    const taskPoints = Number(taskPointsInput.val());
     const id = crypto.randomUUID();
 
     if (type === "daily") {
@@ -50,8 +53,8 @@ export function addTask(type) {
     }
     addCheckboxListeners();
     saveData();
-    document.getElementById("taskName").value = "";
-    document.getElementById("taskPoints").value = "";
+    taskNameInput.val("");
+    taskPointsInput.val("");
 }
 
 export function deleteTask(id, type) {

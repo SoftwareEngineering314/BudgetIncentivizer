@@ -1,40 +1,43 @@
-import { daily_tasks, days } from "../data/data.js";
-import { Calc } from "../calculations/calc.js";
+import {daily_tasks, days, weekly_tasks, saveDailyTaskStatus, saveData} from "../data/data.js";
+import {sumPoints} from "../calculations/calc.js";
+import {dailyTaskCompletionPercentage} from "../calculations/daily-calc.js";
+import {sumWeek} from "../calculations/weekly-calc.js";
+import {possibleDailyPoints, sumDay, currentDailyPoints} from "../calculations/daily-calc.js";
 
 export function handleCheckboxChange() {
-    if (daily_tasks.size === 0) {
-        days.forEach((_, i) => {
-            document.getElementById(`dayTotal-${i}`).textContent = 0;
-        });
-        document.getElementById("dailyCompletion").value = 0;
-        document.getElementById("completedPointsSum").textContent = "0%";
-        document.getElementById("totalPointsSum").textContent = 0;
-        return;
-    }
-
-    days.forEach((_, i) => {
-        document.getElementById(`dayTotal-${i}`).textContent = Calc.sumDay(i);
-    });
-
-    const weeklyPercent = Calc.dailyCompletion(daily_tasks);
-
-    document.getElementById("dailyCompletion").value = isFinite(weeklyPercent) ? weeklyPercent : 0;
-    document.getElementById("completedPointsSum").textContent =
-        (weeklyPercent * 100).toFixed(0) + "%";
-    //possiblePoints();
-    document.getElementById("totalPointsSum").textContent = Calc.possibleDailyPoints();
-    document.getElementById("currTotals").textContent = Calc.currentDailyPoints();
-    document.getElementById("currentWeeklyPoints").textContent = Calc.currentWeeklyPoints();
-    document.getElementById("totalWeeklyPoints").textContent = Calc.possibleWeeklyPoints();
+    dailyTotal();
+    taskCompletion();
+    possiblePoints();
+    currentPoints();
+    saveDailyTaskStatus();
+    saveData();
 }
 
 export const UI = {
     handleCheckboxChange
 };
-function dailyTasks(){
 
+function possiblePoints(){
+    let totalPointsSum = possibleDailyPoints();
+    let totalWeeklyPoints = sumPoints(weekly_tasks);
+    $("#totalPointsSum").text(totalPointsSum);
+    $("#totalWeeklyPoints").text(totalWeeklyPoints);
 }
-// function possiblePoints(){
-//     $("#totalPointsSum").textContent = Calc.possibleDailyPoints();
-//     $("#totalWeeklyPoints").textContent = Calc.possibleWeeklyPoints();
-// }
+function currentPoints(){
+    $("#currTotals").text(currentDailyPoints());
+    $("#currentWeeklyPoints").text(sumWeek(weekly_tasks));
+}
+
+function taskCompletion() {
+    let dailyCompletion = dailyTaskCompletionPercentage(daily_tasks, currentDailyPoints());
+    if(!isFinite(dailyCompletion)) dailyCompletion = 0;
+    $("#dailyCompletion").val(dailyCompletion);
+    const completedPointsSum = (dailyCompletion * 100).toFixed(0) + "%";
+    $("#completedPointsSum").text(completedPointsSum);
+}
+
+function dailyTotal(){
+    days.forEach((_, i) => {
+        $("#dayTotal-"+i).text(sumDay(daily_tasks, i));
+    })
+}
