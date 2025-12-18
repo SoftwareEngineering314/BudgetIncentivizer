@@ -1,13 +1,18 @@
 import { Data } from "../data/data.js";
-import {Dom} from "../events/dom.js";
 
 export function renderTasks() {
-    $("#dailyTaskTable").html(""); // clear before rendering
     renderDailyTasks();
     renderWeeklyTasks();
-    loadTaskStatus();
+    loadDailyTaskStatus();
+    loadWeeklyTaskStatus();
 }
 
+function renderTaskTable(tableSelector, tasks, rowRenderer) {
+    $(tableSelector).empty();
+    tasks.forEach((value, id) => {
+        rowRenderer(id, value.task, value.pts);
+    });
+}
 function addTaskHTML(id, description, points) {
     let dayCells = "";
     Data.days.forEach((_, i) => {
@@ -20,7 +25,7 @@ function addTaskHTML(id, description, points) {
         `;
     });
 
-    Dom.dailyTableBody.insertAdjacentHTML("beforeend", `
+    $("#dailyTaskTable").append(`
         <tr data-id="${id}">
             <td class="task">
                 ${description}
@@ -31,12 +36,16 @@ function addTaskHTML(id, description, points) {
         </tr>
     `);
 }
-function renderDailyTasks(){
-    Data.daily_tasks.forEach((value, id) => {
-        addTaskHTML(id, value.task, value.pts);
-    });
+function renderDailyTasks() {
+    renderTaskTable(
+        "#dailyTaskTable",
+        Data.daily_tasks,
+        addTaskHTML
+    );
 }
-function loadTaskStatus() {
+
+
+function loadDailyTaskStatus() {
     Data.dailyTasksStatus.forEach((value, id) => {
         value.days.forEach((isChecked, dayIndex) => {
             const checkbox = $(`input[data-task='${id}'][data-day='${dayIndex}']`);
@@ -44,13 +53,19 @@ function loadTaskStatus() {
         });
     });
 }
+function loadWeeklyTaskStatus() {
+    Data.weeklyTasksStatus.forEach((value, id) => {
+        const checkbox = $(`input[data-task='${id}']`);
+        checkbox.prop("checked", value.status);
+    });
+}
 
 export function renderWeeklyTasks() {
-    $("#weeklyTaskTable").html("");
-
-    Data.weekly_tasks.forEach((value, id) => {
-        addWeeklyTaskRow(id, value.task, value.pts);
-    });
+    renderTaskTable(
+        "#weeklyTaskTable",
+        Data.weekly_tasks,
+        addWeeklyTaskRow
+    );
 }
 
 function addWeeklyTaskRow(id, description, points) {
@@ -73,6 +88,5 @@ export const Renderer= {
     renderTasks,
     addTaskHTML,
     renderWeeklyTasks
-
 };
 
