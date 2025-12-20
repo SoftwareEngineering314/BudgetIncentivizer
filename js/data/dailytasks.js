@@ -6,18 +6,21 @@ export const daily_tasks = new Map([
     [crypto.randomUUID(), {task: "Have a no-spend day", pts: 20, type: "daily", completed: []}]
 ]);
 export const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-export const dailyTasksStatus = new Map();
 
 export function saveDailyTaskStatus() {
-    dailyTasksStatus.clear();
-    Data.daily_tasks.forEach((value, id) => {
-        let days = [];
+    localStorage.clear();
+    daily_tasks.forEach((value, id) => {
+        let daysList = [];
 
-        for (let i = 0; i < Data.days.length; i++) {
+        for (let i = 0; i < days.length; i++) {
             const checkbox = $(`input[data-task='${id}'][data-day='${i}']`);
-            days[i] = checkbox.is(":checked");
+            daysList[i] = checkbox.is(":checked");
         }
-        dailyTasksStatus.set(id, {days});
+        daily_tasks.set(id, {
+            ...daily_tasks.get(id),
+            completed: daysList
+        });
+        console.log([...daily_tasks.entries()]);
     });
-    return dailyTasksStatus;
+    return daily_tasks;
 }

@@ -1,5 +1,5 @@
 import {getWeek} from "./date.js"
-import {daily_tasks, dailyTasksStatus, days, saveDailyTaskStatus} from "./dailytasks.js";
+import {daily_tasks, days, saveDailyTaskStatus} from "./dailytasks.js";
 import {saveWeeklyTaskStatus, weekly_tasks, weeklyTasksStatus} from "./weeklytasks.js";
 
 
@@ -22,7 +22,6 @@ function loadMap(key, map) {
 export function saveData() {
     saveMap("dailyTasks", daily_tasks);
     saveMap("weeklyTasks", weekly_tasks);
-    saveMap("dailyTasksStatus", saveDailyTaskStatus());
     saveMap("weeklyTasksStatus", saveWeeklyTaskStatus());
 }
 
@@ -53,7 +52,6 @@ export function refreshWeek(resetDay = 0){
 export function loadData() {
     loadMap("dailyTasks", daily_tasks);
     loadMap("weeklyTasks", weekly_tasks);
-    loadMap("dailyTasksStatus", dailyTasksStatus);
     loadMap("weeklyTasksStatus", weeklyTasksStatus);
 }
 
@@ -64,6 +62,5 @@ export const Data = {
     saveData,
     loadData,
     saveDailyTaskStatus,
-    dailyTasksStatus,
     weeklyTasksStatus
 };

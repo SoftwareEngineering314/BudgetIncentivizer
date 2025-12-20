@@ -1,4 +1,4 @@
-import {daily_tasks, dailyTasksStatus} from "./dailytasks.js";
+import {daily_tasks} from "./dailytasks.js";
 
 const taskHistory = {
     week: {
@@ -19,18 +19,18 @@ function addTaskHistory(date, dailyMap, weeklyMap){
 }
 // structure for history should be something like (week,
 
-function populateTaskHistory(date, dailyMap){}
-export function populateTotals(type, map){
-    const totals = new Map();
-    map.forEach((value, id) => {
-        let total = 0;
-        for (let i = 0; i < 7; i++) {
-            if(value.days[i]) total +=1;
-        }
-        totals.set(id, total);
-        console.log(totals);
-    });
-}
+// function populateTaskHistory(date, dailyMap){}
+// export function populateTotals(type, map){
+//     const totals = new Map();
+//     map.forEach((value, id) => {
+//         let total = 0;
+//         for (let i = 0; i < 7; i++) {
+//             if(value.days[i]) total +=1;
+//         }
+//         totals.set(id, total);
+//         console.log(totals);
+//     });
+// }
 
 /*
 pseudocode
