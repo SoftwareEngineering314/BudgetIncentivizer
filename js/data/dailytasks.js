@@ -1,9 +1,9 @@
 import {Data} from "./data.js";
 
 export const daily_tasks = new Map([
-    [crypto.randomUUID(), {task: "Log expenses daily", pts: 5, type: "daily"}],
-    [crypto.randomUUID(), {task: "Stay under weekly budget", pts: 50, type: "daily"}],
-    [crypto.randomUUID(), {task: "Have a no-spend day", pts: 20, type: "daily"}]
+    [crypto.randomUUID(), {task: "Log expenses daily", pts: 5, type: "daily", completed: []}],
+    [crypto.randomUUID(), {task: "Stay under weekly budget", pts: 50, type: "daily", completed: []}],
+    [crypto.randomUUID(), {task: "Have a no-spend day", pts: 20, type: "daily", completed: []}]
 ]);
 export const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 export const dailyTasksStatus = new Map();

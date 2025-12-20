@@ -34,11 +34,19 @@ export function refreshWeek(resetDay = 0){
     const year = today.getFullYear();
     const week = getWeek(today);
     const currentKey = `${year}-W${week}`;
-
+    const historyKey = `history:${currentKey}`;
     const lastRefresh = localStorage.getItem("lastRefreshWeek");
     if(lastRefresh !== currentKey){
-        localStorage.clear();// this is where to add the history
+        localStorage.setItem(historyKey, JSON.stringify({
+            daily: [...daily_tasks],
+            weekly: [...weekly_tasks]
+            })
+        );
         localStorage.setItem("lastRefreshWeek", currentKey);
+        localStorage.removeItem("dailyTasks");
+        localStorage.removeItem("weeklyTasks");
+        localStorage.removeItem("dailyTasksStatus");
+        localStorage.removeItem("weeklyTasksStatus");
     }
 }
 
