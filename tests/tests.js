@@ -7,3 +7,5 @@ export const testData = new Map(
 export function setTestData(){
     setDailyTasks(testData);
 }
+
+//gitignore didnt work if you can see this
