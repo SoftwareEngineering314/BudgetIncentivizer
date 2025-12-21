@@ -1,5 +1,5 @@
-import { Data } from "../data/data.js";
-
+import {daily_tasks, days} from "../data/dailytasks.js";
+import {weekly_tasks, weeklyTasksStatus} from "../data/weeklytasks.js";
 export function renderTasks() {
     renderDailyTasks();
     renderWeeklyTasks();
@@ -15,7 +15,7 @@ function renderTaskTable(tableSelector, tasks, rowRenderer) {
 }
 function addTaskHTML(id, description, points) {
     let dayCells = "";
-    Data.days.forEach((_, i) => {
+    days.forEach((_, i) => {
         dayCells += `
             <td class="day">
                 <input type="checkbox"
@@ -39,22 +39,23 @@ function addTaskHTML(id, description, points) {
 function renderDailyTasks() {
     renderTaskTable(
         "#dailyTaskTable",
-        Data.daily_tasks,
+        daily_tasks,
         addTaskHTML
     );
 }
 
 
 function loadDailyTaskStatus() {
-    Data.dailyTasksStatus.forEach((value, id) => {
-        value.days.forEach((isChecked, dayIndex) => {
+    daily_tasks.forEach((value, id) => {
+        value.completed.forEach((isChecked, dayIndex) => {
             const checkbox = $(`input[data-task='${id}'][data-day='${dayIndex}']`);
             checkbox.prop("checked", isChecked);
         });
     });
 }
+
 function loadWeeklyTaskStatus() {
-    Data.weeklyTasksStatus.forEach((value, id) => {
+    weeklyTasksStatus.forEach((value, id) => {
         const checkbox = $(`input[data-task='${id}']`);
         checkbox.prop("checked", value.status);
     });
@@ -63,7 +64,7 @@ function loadWeeklyTaskStatus() {
 export function renderWeeklyTasks() {
     renderTaskTable(
         "#weeklyTaskTable",
-        Data.weekly_tasks,
+        weekly_tasks,
         addWeeklyTaskRow
     );
 }
