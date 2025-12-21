@@ -10,6 +10,8 @@
         <header>
             <h1 class = "header1">Objectives</h1>
             <h6 id = "currentDate"></h6>
+        </header>
+        <div class = "taskbuttons">
             <label for="taskName">  </label>
             <input class = "inputField" type="text" id="taskName" placeholder="Task Name" />
             <label for="taskPoints">  </label>
@@ -20,7 +22,9 @@
                 <option value="Weekly">Weekly</option>
             </select>
             <button id="addTask">Add Task</button>
-        </header>
+            <label for = "userFile"></label>
+            <input id="userFile" type="file" accept = ".json"/>
+        </div>
 
         <table id = "dailyTable" class = "taskTable">
             <caption class = "tableNames">Daily Tasks</caption>

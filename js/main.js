@@ -6,7 +6,7 @@ import "./events/tasktable.js";
 import "./calculations/stats.js";
 import "./events/stats.js"
 import "./data/history.js"
-import {setTestData} from "../tests/tests.js";
+import "./data/jsonloading.js"
 import {buildTaskHistory} from "./data/history.js";
 function startup() {
     Data.loadData();
