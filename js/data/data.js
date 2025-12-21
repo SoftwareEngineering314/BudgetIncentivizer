@@ -1,5 +1,5 @@
 import {getWeek} from "./date.js"
-import {daily_tasks, days, saveDailyTaskStatus} from "./dailytasks.js";
+import {daily_tasks, days} from "./dailytasks.js";
 import {saveWeeklyTaskStatus, weekly_tasks, weeklyTasksStatus} from "./weeklytasks.js";
 
 
@@ -59,8 +59,6 @@ export const Data = {
     daily_tasks,
     weekly_tasks,
     days,
-    saveData,
     loadData,
-    saveDailyTaskStatus,
     weeklyTasksStatus
 };

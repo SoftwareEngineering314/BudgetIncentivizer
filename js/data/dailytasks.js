@@ -1,3 +1,5 @@
+
+
 export let daily_tasks = new Map();
 export const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 

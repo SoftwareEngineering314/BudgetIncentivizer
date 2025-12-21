@@ -1,5 +1,7 @@
 import {daily_tasks, days} from "../data/dailytasks.js";
 import {weekly_tasks, weeklyTasksStatus} from "../data/weeklytasks.js";
+import {handleCheckboxChange} from "./ui.js";
+import {addCheckboxListeners} from "../events/events.js";
 export function renderTasks() {
     renderDailyTasks();
     renderWeeklyTasks();
@@ -13,6 +15,7 @@ function renderTaskTable(tableSelector, tasks, rowRenderer) {
         rowRenderer(id, value.task, value.pts);
     });
 }
+
 function addTaskHTML(id, description, points) {
     let dayCells = "";
     days.forEach((_, i) => {
@@ -83,6 +86,11 @@ function addWeeklyTaskRow(id, description, points) {
         </tr>
     `;
     $("#weeklyTaskTable").append(html);
+}
+export function refreshTable(){
+    renderTasks();
+    handleCheckboxChange();
+    addCheckboxListeners();
 }
 
 export const Renderer= {
