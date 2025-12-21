@@ -25,7 +25,7 @@ export function saveData() {
     saveMap("weeklyTasksStatus", saveWeeklyTaskStatus());
 }
 
-export function refreshWeek(resetDay = 6){
+export function refreshWeek(resetDay = 0){
     const today = new Date();
     const day = today.getDay();
     if(day!== resetDay) return;

@@ -9,8 +9,8 @@ import "./data/history.js"
 import {setTestData} from "../tests/tests.js";
 import {buildTaskHistory} from "./data/history.js";
 function startup() {
-    refreshWeek();
     Data.loadData();
+    refreshWeek();
     Renderer.renderTasks();
     addCheckboxListeners();
     UI.handleCheckboxChange();
